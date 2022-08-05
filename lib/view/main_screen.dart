@@ -9,7 +9,7 @@ class MainScreen extends StatelessWidget {
 
   UserContactController userContactController =
       Get.put(UserContactController());
-
+  int editIndex=-1;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -26,27 +26,48 @@ class MainScreen extends StatelessWidget {
             controller: userContactController.phoneTextEditingController,
           ),
           //TODO file picker for profile picture
-          ElevatedButton(
-              onPressed: (() {
-                userContactController.addToContact();
-              }),
-              child: Text('Add to Contact')),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              ElevatedButton(
+                  onPressed: (() {
+                    userContactController.addToContact();
+                  }),
+                  child: Text('Add to Contact')),
+              ElevatedButton(
+                  onPressed: (() {
+                    userContactController.editContact(editIndex);
+                  }),
+                  child: Text('Update')),
+            ],
+          ),
           SizedBox(
             child: Obx(
               () => ListView.builder(
                   shrinkWrap: true,
                   itemCount: userContactController.contactList.length,
-                  itemBuilder: ((context, index) => Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Text(userContactController
-                                  .contactList[index].name),
-                              Text(userContactController
-                                  .contactList[index].phone)
-                            ],
+                  itemBuilder: ((context, index) => GestureDetector(
+                        onTap: (() {
+                          userContactController
+                                  .phoneTextEditingController.text =
+                              userContactController.contactList[index].phone;
+                          userContactController
+                                  .usernameTextEditingController.text =
+                              userContactController.contactList[index].name;
+                              editIndex= index;
+                        }),
+                        child: Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text(userContactController
+                                    .contactList[index].name),
+                                Text(userContactController
+                                    .contactList[index].phone)
+                              ],
+                            ),
                           ),
                         ),
                       ))),
