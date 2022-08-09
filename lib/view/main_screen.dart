@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:whatsapp_agora_sample/constants/text_style.dart';
+import 'package:whatsapp_agora_sample/constants/whatsapp_color.dart';
 import 'package:whatsapp_agora_sample/controller/user_contact_controller.dart';
+import 'package:whatsapp_agora_sample/gen/assets.gen.dart';
 
 class MainScreen extends StatelessWidget {
   MainScreen({Key? key}) : super(key: key);
 
   UserContactController userContactController =
       Get.put(UserContactController());
-  int editIndex=-1;
+
+  int editIndex = -1;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -33,7 +36,7 @@ class MainScreen extends StatelessWidget {
                   onPressed: (() {
                     userContactController.addToContact();
                   }),
-                  child: Text('Add to Contact')),
+                  child: const Text('Add to Contact')),
               ElevatedButton(
                   onPressed: (() {
                     userContactController.editContact(editIndex);
@@ -51,30 +54,66 @@ class MainScreen extends StatelessWidget {
                           userContactController
                                   .phoneTextEditingController.text =
                               userContactController.contactList[index].phone;
+
                           userContactController
                                   .usernameTextEditingController.text =
                               userContactController.contactList[index].name;
-                              editIndex= index;
+
+                          editIndex = index;
                         }),
-                        child: Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Text(userContactController
-                                    .contactList[index].name),
-                                Text(userContactController
-                                    .contactList[index].phone)
-                              ],
-                            ),
-                          ),
-                        ),
+                        child: contactItem(index),
                       ))),
             ),
           )
         ]),
       ),
     ));
+  }
+
+  Widget contactItem(int index) {
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                height: 50,
+                width: 50,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: Image.asset(Assets.images.av.path).image)),
+              ),
+              const SizedBox(width: 12,),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(userContactController.contactList[index].name,style: usernameTextStyle,),
+                  Text("last message!!",style: messageTextStyle,),
+                ],
+              ),
+            ],
+          )
+          ,Column(
+            
+            children: [
+                  Text("17:45",style: timeTextStyle,),
+                  Container(
+                    height: 18,
+                    width: 18,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: badg
+                    ),
+                    child: const Center(child: Text("1")),
+                  ),
+
+          ],)
+        
+        ],
+      ),
+    );
   }
 }

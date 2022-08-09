@@ -56,21 +56,21 @@ class UserContactController extends GetxController{
   }
 
 
+
   editContact(int index) async {
 
      var box  = await Hive.openBox(HiveFieldConstant.userContactListBox);
+
       UserContactListModel userContactListModel =  box.getAt(index);
+
       userContactListModel.name = usernameTextEditingController.text;
       userContactListModel.phone = phoneTextEditingController.text;
       userContactListModel.save();
 
       contactList.clear();
       //read users from box
-      box.values.forEach((element) {
-        UserContactListModel userContactListModel = element;
-        contactList.add(userContactListModel);
-        print(userContactListModel.name);
-      });
+
+      readContacts();
 
   }
 
