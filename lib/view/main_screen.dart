@@ -1,119 +1,113 @@
+import 'dart:developer';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/src/foundation/key.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-import 'package:whatsapp_agora_sample/constants/text_style.dart';
+import 'package:whatsapp_agora_sample/component/text_style.dart';
 import 'package:whatsapp_agora_sample/constants/whatsapp_color.dart';
-import 'package:whatsapp_agora_sample/controller/user_contact_controller.dart';
-import 'package:whatsapp_agora_sample/gen/assets.gen.dart';
 
 class MainScreen extends StatelessWidget {
   MainScreen({Key? key}) : super(key: key);
-
-  UserContactController userContactController =
-      Get.put(UserContactController());
-
-  int editIndex = -1;
-
+  RxInt selectedTabIndex = 0.obs;
   @override
   Widget build(BuildContext context) {
+    var tabSize = Get.width / 4;
+
     return SafeArea(
         child: Scaffold(
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Column(children: [
-          TextFormField(
-            decoration: const InputDecoration(hintText: "@username"),
-            controller: userContactController.usernameTextEditingController,
-          ),
-          TextFormField(
-            decoration: const InputDecoration(hintText: "@phone"),
-            controller: userContactController.phoneTextEditingController,
-          ),
-          //TODO file picker for profile picture
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ElevatedButton(
-                  onPressed: (() {
-                    userContactController.addToContact();
-                  }),
-                  child: const Text('Add to Contact')),
-              ElevatedButton(
-                  onPressed: (() {
-                    userContactController.editContact(editIndex);
-                  }),
-                  child: Text('Update')),
-            ],
-          ),
-          SizedBox(
-            child: Obx(
-              () => ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: userContactController.contactList.length,
-                  itemBuilder: ((context, index) => GestureDetector(
-                        onTap: (() {
-                          userContactController
-                                  .phoneTextEditingController.text =
-                              userContactController.contactList[index].phone;
-
-                          userContactController
-                                  .usernameTextEditingController.text =
-                              userContactController.contactList[index].name;
-
-                          editIndex = index;
-                        }),
-                        child: contactItem(index),
-                      ))),
-            ),
-          )
-        ]),
+      appBar: AppBar(
+        elevation: 0,
+        actions: [
+          IconButton(
+              onPressed: (() {
+                log("search");
+              }),
+              icon: const Icon(Icons.search)),
+          IconButton(
+              onPressed: (() {
+                log("menu");
+              }),
+              icon: const Icon(Icons.menu)),
+        ],
+        title: const Text("WhatsApp"),
       ),
-    ));
-  }
-
-  Widget contactItem(int index) {
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
+      body: Column(children: [
+        Container(
+          height: 35,
+          color: whatsappColor,
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Container(
-                height: 50,
-                width: 50,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: Image.asset(Assets.images.av.path).image)),
+              SizedBox(
+                width: Get.width / 13,
+                child: const Icon(
+                  Icons.camera,
+                  color: Colors.white,
+                ),
               ),
-              const SizedBox(width: 12,),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(userContactController.contactList[index].name,style: usernameTextStyle,),
-                  Text("last message!!",style: messageTextStyle,),
-                ],
-              ),
-            ],
-          )
-          ,Column(
-            
-            children: [
-                  Text("17:45",style: timeTextStyle,),
-                  Container(
-                    height: 18,
-                    width: 18,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: badg
+              Expanded(
+                child:SizedBox(
+                    height: 34,
+                    child: Center(
+                      child:  
+                           ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: tabTitleList.length,
+                              shrinkWrap: true,
+                              itemBuilder: ((context, index) => GestureDetector(
+                                    onTap: (() {
+                                      selectedTabIndex.value = index;
+                                    }),
+                                    child: Obx(
+                                      ()=> SizedBox(
+                                          width: tabSize,
+                                          child: Center(
+                                              child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Text(
+                                                tabTitleList[index],
+                                                style: index == selectedTabIndex.value
+                                                    ? selectedTabBarTextStyle
+                                                    : unselectedTabBarTextStyle,
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.symmetric(
+                                                    horizontal: 4),
+                                                child: AnimatedOpacity(
+                                                  duration: Duration(milliseconds: 500),
+                                                    opacity: index ==
+                                                            selectedTabIndex.value
+                                                        ? 1
+                                                        : 0,
+                                                    child: Container(
+                                                      height: 2,
+                                                      color: Colors.white,
+                                                    )),
+                                              )
+                                            ],
+                                          ))),
+                                    ),
+                                  ))) 
+                      
+                     
                     ),
-                    child: const Center(child: Text("1")),
                   ),
-
-          ],)
+                
+              )
+            ],
+          ),
+        )
+      ]),
+      floatingActionButton: FloatingActionButton(onPressed: (() {
         
-        ],
-      ),
-    );
+      }),child: Icon(Icons.chat)),
+    
+    ));
   }
 }
+
+List<String> tabTitleList = ['CHATS', 'STATUS', 'CALLS'];

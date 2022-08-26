@@ -1,6 +1,7 @@
 
 import 'package:hive_flutter/adapters.dart';
 part 'user_model.g.dart';
+
 //flutter packages pub run build_runner build
 
 @HiveType(typeId: 0)
