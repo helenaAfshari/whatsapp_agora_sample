@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:whatsapp_agora_sample/component/text_style.dart';
-import 'package:whatsapp_agora_sample/constants/whatsapp_color.dart';
+import 'package:whatsapp_agora_sample/component/widgets.dart';
 import 'package:whatsapp_agora_sample/controller/user_contact_controller.dart';
-import 'package:whatsapp_agora_sample/gen/assets.gen.dart';
+import 'package:whatsapp_agora_sample/controller/user_inbox_list_controller.dart';
+ 
 
 class ContactListScreen extends StatelessWidget {
   ContactListScreen({Key? key}) : super(key: key);
 
   UserContactController userContactController =
       Get.put(UserContactController());
-
+  UserInboxListController userInboxListController = Get.put(UserInboxListController());
   int editIndex = -1;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+          backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: Column(children: [
           TextFormField(
             decoration: const InputDecoration(hintText: "@username"),
@@ -41,7 +42,7 @@ class ContactListScreen extends StatelessWidget {
                   onPressed: (() {
                     userContactController.editContact(editIndex);
                   }),
-                  child: Text('Update')),
+                  child: const Text('Update')),
             ],
           ),
           SizedBox(
@@ -61,7 +62,20 @@ class ContactListScreen extends StatelessWidget {
 
                           editIndex = index;
                         }),
-                        child: contactItem(index),
+                        //TODO imagePath is empty an hard code
+                        child:GestureDetector(
+                          onTap:(() {
+                            userInboxListController.addToInbox(
+                              name: userContactController.contactList[index].name,
+                               phone:  userContactController.contactList[index].phone);
+                               Get.back();
+                          }),
+                          child: userItem(index: index,
+                           name: userContactController.contactList[index].name,
+                            imagePath: "",
+                             lastMaeeage: "lastMaeeage",
+                              time: "22:00"),
+                        ),
                       ))),
             ),
           )
@@ -70,50 +84,5 @@ class ContactListScreen extends StatelessWidget {
     ));
   }
 
-  Widget contactItem(int index) {
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                height: 50,
-                width: 50,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: Image.asset(Assets.images.av.path).image)),
-              ),
-              const SizedBox(width: 12,),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(userContactController.contactList[index].name,style: usernameTextStyle,),
-                  Text("last message!!",style: messageTextStyle,),
-                ],
-              ),
-            ],
-          )
-          ,Column(
-            
-            children: [
-                  Text("17:45",style: timeTextStyle,),
-                  Container(
-                    height: 18,
-                    width: 18,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: badg
-                    ),
-                    child: const Center(child: Text("1")),
-                  ),
-
-          ],)
-        
-        ],
-      ),
-    );
-  }
+ 
 }

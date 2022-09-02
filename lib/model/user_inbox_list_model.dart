@@ -1,11 +1,11 @@
 
 import 'package:hive_flutter/adapters.dart';
-part 'user_model.g.dart';
+part 'user_inbox_list_model.g.dart';
 
 //flutter packages pub run build_runner build
 
-@HiveType(typeId: 0)
-class UserContactListModel extends HiveObject{
+@HiveType(typeId: 1)
+class UserInboxListModel extends HiveObject{
 
     @HiveField(0)
     String name;
@@ -14,7 +14,7 @@ class UserContactListModel extends HiveObject{
     @HiveField(2)
     String userProfile;
 
-    UserContactListModel(
+    UserInboxListModel(
       {
         required this.name,
         required this.phone,
@@ -23,3 +23,6 @@ class UserContactListModel extends HiveObject{
     );
 
 }
+
+
+

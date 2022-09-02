@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:whatsapp_agora_sample/component/theme.dart';
-import 'package:whatsapp_agora_sample/model/user_model.dart';
+import 'package:whatsapp_agora_sample/model/user_contact_list_model.dart';
 import 'package:whatsapp_agora_sample/view/main_screen.dart';
 
 void main() async {
