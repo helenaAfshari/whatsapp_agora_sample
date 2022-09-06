@@ -11,7 +11,7 @@ import 'contact_list.dart';
 
 // ignore: must_be_immutable
 class MainScreen extends StatefulWidget {
-  MainScreen({Key? key}) : super(key: key);
+  const MainScreen({Key? key}) : super(key: key);
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -114,8 +114,8 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 4),
                                             child: AnimatedOpacity(
-                                                duration:
-                                                    Duration(milliseconds: 500),
+                                                duration: const Duration(
+                                                    milliseconds: 500),
                                                 opacity: index ==
                                                         selectedTabIndex.value
                                                     ? 1
@@ -142,8 +142,9 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
                 itemBuilder: ((context, index) => GestureDetector(
                       onTap: (() {
                         //TODO Go to Chat Screen
-                        Get.to(ChatScreen());
+                        Get.to(const ChatScreen());
                       }),
+                      
                       //TODO imagePath is empty an hard code
                       child: userItem(
                           index: index,

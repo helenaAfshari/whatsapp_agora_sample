@@ -6,25 +6,21 @@ import 'package:whatsapp_agora_sample/model/user_contact_list_model.dart';
 import 'package:whatsapp_agora_sample/view/main_screen.dart';
 
 void main() async {
-
   await Hive.initFlutter();
   Hive.registerAdapter(UserContactListModelAdapter());
-  runApp(  const MyApp());
-
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
     var isDarkMode = true;
     return GetMaterialApp(
       title: 'Flutter Demo',
-      theme:isDarkMode?darkMode():lightMode() ,
-      home:   MainScreen(),
+      theme: isDarkMode ? darkMode() : lightMode(),
+      home: const MainScreen(),
     );
   }
 }
- 

@@ -3,21 +3,22 @@ import 'package:get/get.dart';
 import 'package:whatsapp_agora_sample/component/widgets.dart';
 import 'package:whatsapp_agora_sample/controller/user_contact_controller.dart';
 import 'package:whatsapp_agora_sample/controller/user_inbox_list_controller.dart';
- 
 
+// ignore: must_be_immutable
 class ContactListScreen extends StatelessWidget {
   ContactListScreen({Key? key}) : super(key: key);
 
   UserContactController userContactController =
       Get.put(UserContactController());
-  UserInboxListController userInboxListController = Get.put(UserInboxListController());
+  UserInboxListController userInboxListController =
+      Get.put(UserInboxListController());
   int editIndex = -1;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          backgroundColor: Colors.white,
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(children: [
@@ -63,17 +64,21 @@ class ContactListScreen extends StatelessWidget {
                           editIndex = index;
                         }),
                         //TODO imagePath is empty an hard code
-                        child:GestureDetector(
-                          onTap:(() {
+                        child: GestureDetector(
+                          onTap: (() {
                             userInboxListController.addToInbox(
-                              name: userContactController.contactList[index].name,
-                               phone:  userContactController.contactList[index].phone);
-                               Get.back();
+                                name: userContactController
+                                    .contactList[index].name,
+                                phone: userContactController
+                                    .contactList[index].phone);
+                            Get.back();
                           }),
-                          child: userItem(index: index,
-                           name: userContactController.contactList[index].name,
-                            imagePath: "",
-                             lastMaeeage: "lastMaeeage",
+                          child: userItem(
+                              index: index,
+                              name:
+                                  userContactController.contactList[index].name,
+                              imagePath: "",
+                              lastMaeeage: "lastMaeeage",
                               time: "22:00"),
                         ),
                       ))),
@@ -83,6 +88,4 @@ class ContactListScreen extends StatelessWidget {
       ),
     ));
   }
-
- 
 }
