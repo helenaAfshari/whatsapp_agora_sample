@@ -1,9 +1,11 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:whatsapp_agora_sample/component/text_style.dart';
 import 'package:whatsapp_agora_sample/constants/whatsapp_color.dart';
 import 'package:whatsapp_agora_sample/controller/user_inbox_list_controller.dart';
+import 'package:whatsapp_agora_sample/gen/assets.gen.dart';
 
 import '../component/widgets.dart';
 import 'chat_screen.dart';
@@ -72,6 +74,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
       ),
       body: SingleChildScrollView(
         child: Column(children: [
+          //tabs
           Container(
             height: 35,
             color: whatsappColor,
@@ -139,56 +142,91 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
               ],
             ),
           ),
-
           //chats
           Obx(
             () => IndexedStack(
               index: selectedTabIndex.value,
               children: [
                 chatScreen(),
+                //status
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     //Tap to add status update
-                    Container(
-                      color: Colors.blue,
-                      height: 60,
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Stack(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(1000),
+                                child: Image.asset(
+                                  Assets.images.flix.path,
+                                  height: 60,
+                                  width: 60,
+                                ),
+                              ),
+                              Positioned(
+                                  bottom: 0,
+                                  right: 0,
+                                  child:
+                                      SvgPicture.asset(Assets.icons.addStatus))
+                            ],
+                          ),
+                          const SizedBox(
+                            width: 16,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "My status",
+                                style: bigTitle,
+                              ),
+                              Text(
+                                "Tap to add status update",
+                                style: cation,
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
+                    //recent update
                     const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text("Recent updates"),
                     ),
+
                     //recent updates
                     ListView.builder(
-                        physics: ClampingScrollPhysics(),
+                        physics: const ClampingScrollPhysics(),
                         itemCount: 5,
                         shrinkWrap: true,
                         itemBuilder: ((context, index) {
-                          return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                color: Colors.black26,
-                                height: 60,
-                              ));
+                          return statusItem(
+                              image: Assets.images.flix.path,
+                              name: "FelAngel",
+                              date: "Today, 19:06");
                         })),
-
+                    //Viewed updates
                     const Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: Text("Recent updates"),
+                      child: Text("Viewed updates"),
                     ),
+
                     //recent updates
                     ListView.builder(
-                        physics: ClampingScrollPhysics(),
+                        physics: const ClampingScrollPhysics(),
                         itemCount: 2,
                         shrinkWrap: true,
                         itemBuilder: ((context, index) {
-                          return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                color: Colors.black26,
-                                height: 60,
-                              ));
+                          return statusItem(
+                              image: Assets.images.av.path,
+                              name: 'sasan',
+                              date: "Today, 19:06");
                         }))
                   ],
                 ),
@@ -207,6 +245,44 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
           }),
           child: const Icon(Icons.chat)),
     ));
+  }
+
+  Widget statusItem({
+    required image,
+    required name,
+    required date,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(1000),
+            child: Image.asset(
+              image,
+              height: 60,
+              width: 60,
+            ),
+          ),
+          const SizedBox(
+            width: 16,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                name,
+                style: bigTitle,
+              ),
+              Text(
+                date,
+                style: cation,
+              ),
+            ],
+          )
+        ],
+      ),
+    );
   }
 
   Widget chatScreen() {

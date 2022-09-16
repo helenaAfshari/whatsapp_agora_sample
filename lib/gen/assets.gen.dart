@@ -9,16 +9,27 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsIconsGen {
+  const $AssetsIconsGen();
+
+  /// File path: assets/icons/add_status.svg
+  String get addStatus => 'assets/icons/add_status.svg';
+}
+
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
   /// File path: assets/images/av.png
   AssetGenImage get av => const AssetGenImage('assets/images/av.png');
+
+  /// File path: assets/images/flix.jpg
+  AssetGenImage get flix => const AssetGenImage('assets/images/flix.jpg');
 }
 
 class Assets {
   Assets._();
 
+  static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 

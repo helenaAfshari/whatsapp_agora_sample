@@ -29,3 +29,16 @@ TextStyle selectedTabBarTextStyle = GoogleFonts.inter(
     fontWeight: FontWeight.w300,
     fontStyle: FontStyle.normal,
     color: Colors.white);
+
+
+TextStyle bigTitle = GoogleFonts.inter(
+    fontSize: 17,
+    fontWeight: FontWeight.w400,
+    fontStyle: FontStyle.normal,
+    color: Colors.black);
+
+TextStyle cation = GoogleFonts.inter(
+    fontSize: 15,
+    fontWeight: FontWeight.w300,
+    fontStyle: FontStyle.normal,
+    color: Colors.black);

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:whatsapp_agora_sample/constants/hive_keys.dart';
@@ -16,15 +17,14 @@ class UserInboxListController extends GetxController {
     var box = await Hive.openBox(HiveFieldConstant.userInboxListBox);
     var user = UserInboxListModel(
         name: name, phone: phone, userProfile: "userProfile");
-    box.add(user);
+
+    if (box.values.contains(user)) {
+      box.add(user);
+    }
 
     inboxList.clear();
     //read users from box
-    for (var element in box.values) {
-      UserInboxListModel user = element;
-      inboxList.add(user);
-      //print(user.name);
-    }
+    await readInbox();
   }
 
   readInbox() async {
