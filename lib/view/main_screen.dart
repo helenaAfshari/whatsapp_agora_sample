@@ -55,24 +55,103 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
 
     return SafeArea(
         child: Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        actions: [
-          IconButton(
-              onPressed: (() {
-                log("search");
-              }),
-              icon: const Icon(Icons.search)),
-          IconButton(
-              onPressed: (() {
-                log("menu");
-              }),
-              icon: const Icon(Icons.menu)),
-        ],
-        title: const Text("WhatsApp"),
-      ),
-      body: SingleChildScrollView(
+      body:NestedScrollView(     
+                headerSliverBuilder: (context, innerBoxIsScrolled) {
+                  return <Widget>[
+                    SliverAppBar(
+                      title: Text("WhatsApp"),
+                      backgroundColor: whatsappColor,
+                      expandedHeight: 100,    
+                      pinned: true,
+                      floating: true,
+                      bottom: TabBar(
+                        tabs: [
+                          Container(
+                            height: 35,
+                            color: whatsappColor,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                //camnera
+                                SizedBox(
+                                  width: Get.width / 13,
+                                  child: const Icon(
+                                    Icons.camera,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                //tabs
+                                Expanded(
+                                  child: SizedBox(
+                                    height: 34,
+                                    child: Center(
+                                        child: ListView.builder(
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: tabTitleList.length,
+                                            shrinkWrap: true,
+                                            itemBuilder:
+                                                ((context, index) =>
+                                                    GestureDetector(
+                                                      onTap: (() {
+                                                        selectedTabIndex.value =
+                                                            index;
+                                                      }),
+                                                      child: Obx(
+                                                        () => SizedBox(
+                                                            width: tabSize,
+                                                            child: Center(
+                                                                child: Column(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceAround,
+                                                              children: [
+                                                                Text(
+                                                                  tabTitleList[
+                                                                      index],
+                                                                  style: index ==
+                                                                          selectedTabIndex
+                                                                              .value
+                                                                      ? selectedTabBarTextStyle
+                                                                      : unselectedTabBarTextStyle,
+                                                                ),
+                                                                Padding(
+                                                                  padding: const EdgeInsets
+                                                                          .symmetric(
+                                                                      horizontal:
+                                                                          4),
+                                                                  child:
+                                                                      AnimatedOpacity(
+                                                                          duration: const Duration(
+                                                                              milliseconds:
+                                                                                  500),
+                                                                          opacity: index == selectedTabIndex.value
+                                                                              ? 1
+                                                                              : 0,
+                                                                          child:
+                                                                              Container(
+                                                                            height:
+                                                                                2,
+                                                                            color:
+                                                                                Colors.white,
+                                                                          )),
+                                                                )
+                                                              ],
+                                                            ))),
+                                                      ),
+                                                    )))),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ];
+                  
+                },
+
+           body: SingleChildScrollView(
         child: Column(children: [
           //tabs
           Container(
@@ -239,12 +318,15 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
           )
         ]),
       ),
+    ),
+    
       floatingActionButton: FloatingActionButton(
           onPressed: (() {
             Get.to(ContactListScreen());
           }),
           child: const Icon(Icons.chat)),
-    ));
+    )
+    );
   }
 
   Widget statusItem({
