@@ -1,22 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_model.dart';
+part of 'user_inbox_list_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class UserContactListModelAdapter extends TypeAdapter<UserContactListModel> {
+class UserInboxListModelAdapter extends TypeAdapter<UserInboxListModel> {
   @override
-  final int typeId = 0;
+  final int typeId = 1;
 
   @override
-  UserContactListModel read(BinaryReader reader) {
+  UserInboxListModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return UserContactListModel(
+    return UserInboxListModel(
       name: fields[0] as String,
       phone: fields[1] as String,
       userProfile: fields[2] as String,
@@ -24,7 +24,7 @@ class UserContactListModelAdapter extends TypeAdapter<UserContactListModel> {
   }
 
   @override
-  void write(BinaryWriter writer, UserContactListModel obj) {
+  void write(BinaryWriter writer, UserInboxListModel obj) {
     writer
       ..writeByte(3)
       ..writeByte(0)
@@ -41,7 +41,7 @@ class UserContactListModelAdapter extends TypeAdapter<UserContactListModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is UserContactListModelAdapter &&
+      other is UserInboxListModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
