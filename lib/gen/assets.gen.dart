@@ -14,6 +14,12 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/add_status.svg
   String get addStatus => 'assets/icons/add_status.svg';
+
+  /// File path: assets/icons/incall.svg
+  String get incall => 'assets/icons/incall.svg';
+
+  /// File path: assets/icons/phone_icon.svg
+  String get phoneIcon => 'assets/icons/phone_icon.svg';
 }
 
 class $AssetsImagesGen {

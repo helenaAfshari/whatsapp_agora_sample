@@ -73,7 +73,7 @@ class ContactListScreen extends StatelessWidget {
                                     .contactList[index].phone);
                             Get.back();
                           }),
-                          child: userItem(
+                          child:SnWidgets.userItem(
                               index: index,
                               name:
                                   userContactController.contactList[index].name,

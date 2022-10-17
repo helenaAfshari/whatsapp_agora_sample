@@ -12,49 +12,22 @@ import 'chat_screen.dart';
 import 'contact_list.dart';
 
 // ignore: must_be_immutable
-class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+ 
 
-  @override
-  State<MainScreen> createState() => _MainScreenState();
-}
-
-class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
+class MainScreen extends StatelessWidget {
   RxInt selectedTabIndex = 0.obs;
 
   UserInboxListController userInboxListController =
       Get.put(UserInboxListController());
 
-  @override
-  void initState() {
-    WidgetsBinding.instance.addObserver(this);
-    super.initState();
-    log("initState");
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-
-    super.dispose();
-    log("dispose");
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-
-    if (state == AppLifecycleState.resumed) {
-      userInboxListController.readInbox();
-    }
-  }
+ 
 
   @override
   Widget build(BuildContext context) {
     var tabSize = Get.width / 4;
 
     return SafeArea(
-        child: Scaffold(
+      child: Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
@@ -230,10 +203,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
                         }))
                   ],
                 ),
-                Container(
-                  color: Colors.blue,
-                  height: 50,
-                )
+                callsScreen()
               ],
             ),
           )
@@ -298,7 +268,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
                   }),
 
                   //TODO imagePath is empty an hard code
-                  child: userItem(
+                  child:SnWidgets.userItem(
                       index: index,
                       name: userInboxListController.inboxList[index].name,
                       imagePath: "",
@@ -307,6 +277,23 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
                 ))),
       ),
     );
+  }
+  Widget callsScreen() {
+    return SizedBox(
+      child:   ListView.builder(
+            shrinkWrap: true,
+            itemCount: 6,
+            itemBuilder: ((context, index) => GestureDetector(
+                  onTap: (() {
+                    //TODO Go to Chat Screen
+                    Get.to(const ChatScreen());
+                  }),
+
+                  //TODO imagePath is empty an hard code
+                  child: SnWidgets.callsItem(index: index, name: "name", imagePath: "imagePath", lastMaeeage: "22:00", time: "time"),
+                ))),
+      );
+     
   }
 }
 
