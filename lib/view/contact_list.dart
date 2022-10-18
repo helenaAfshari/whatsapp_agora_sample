@@ -1,6 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:whatsapp_agora_sample/component/input_decoration.dart';
+import 'package:whatsapp_agora_sample/component/text_style.dart';
 import 'package:whatsapp_agora_sample/component/widgets.dart';
+import 'package:whatsapp_agora_sample/constants/whatsapp_color.dart';
 import 'package:whatsapp_agora_sample/controller/user_contact_controller.dart';
 import 'package:whatsapp_agora_sample/controller/user_inbox_list_controller.dart';
 
@@ -19,33 +23,52 @@ class ContactListScreen extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+
+        leading: const Icon(Icons.supervised_user_circle,size: 48),
+        actions:   [
+          Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Center(child: Text("Contacts",style: SnTextStyles.lightTextButton,)),
+        )],
+
+      ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(children: [
-          TextFormField(
-            decoration: const InputDecoration(hintText: "@username"),
-            controller: userContactController.usernameTextEditingController,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextFormField(
+              onChanged: ((value) => userContactController.search(value)),
+              decoration: SnInputDecotration(
+                hintText: "Type To Search",
+                icon: Icons.search
+                
+                ).searchForms(),
+             ),
           ),
-          TextFormField(
-            decoration: const InputDecoration(hintText: "@phone"),
-            controller: userContactController.phoneTextEditingController,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextFormField(
+              decoration: SnInputDecotration(
+                hintText: "Name and Last Name",
+                icon: Icons.edit
+                ).normalForms(),
+              controller: userContactController.usernameTextEditingController,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextFormField(
+              decoration: SnInputDecotration(
+                hintText: "Phone Number",
+                icon: Icons.phone
+                ).normalForms(),
+              controller: userContactController.phoneTextEditingController,
+            ),
           ),
           //TODO file picker for profile picture
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ElevatedButton(
-                  onPressed: (() {
-                    userContactController.addToContact();
-                  }),
-                  child: const Text('Add to Contact')),
-              ElevatedButton(
-                  onPressed: (() {
-                    userContactController.editContact(editIndex);
-                  }),
-                  child: const Text('Update')),
-            ],
-          ),
+
           SizedBox(
             child: Obx(
               () => ListView.builder(
@@ -86,6 +109,24 @@ class ContactListScreen extends StatelessWidget {
           )
         ]),
       ),
+      bottomNavigationBar: Container(
+        color: SnColors.whatsappColor,
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              TextButton(
+                  onPressed: (() {
+                    userContactController.addToContact();
+                  }),
+                  child:   Text('Add to Contact',style: SnTextStyles.lightTextButton,)),
+              TextButton(
+                  onPressed: (() {
+                    userContactController.editContact(editIndex);
+                  }),
+                  child:   Text('Update Contact',style: SnTextStyles.lightTextButton,)),
+            ],
+          )
+           ),
     ));
   }
 }

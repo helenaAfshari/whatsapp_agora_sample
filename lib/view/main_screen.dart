@@ -50,7 +50,7 @@ class MainScreen extends StatelessWidget {
           //tabs
           Container(
             height: 35,
-            color: whatsappColor,
+            color: SnColors.whatsappColor,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -87,8 +87,8 @@ class MainScreen extends StatelessWidget {
                                               tabTitleList[index],
                                               style: index ==
                                                       selectedTabIndex.value
-                                                  ? selectedTabBarTextStyle
-                                                  : unselectedTabBarTextStyle,
+                                                  ? SnTextStyles.selectedTabBarTextStyle
+                                                  : SnTextStyles.unselectedTabBarTextStyle,
                                             ),
                                             Padding(
                                               padding:
@@ -156,11 +156,11 @@ class MainScreen extends StatelessWidget {
                             children: [
                               Text(
                                 "My status",
-                                style: bigTitle,
+                                style: SnTextStyles.bigTitle,
                               ),
                               Text(
                                 "Tap to add status update",
-                                style: cation,
+                                style: SnTextStyles.cation,
                               ),
                             ],
                           )
@@ -242,11 +242,11 @@ class MainScreen extends StatelessWidget {
             children: [
               Text(
                 name,
-                style: bigTitle,
+                style: SnTextStyles.bigTitle,
               ),
               Text(
                 date,
-                style: cation,
+                style: SnTextStyles.cation,
               ),
             ],
           )

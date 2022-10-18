@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     var isDarkMode = true;
     return GetMaterialApp(
       title: 'Flutter Demo',
-      theme: isDarkMode ? darkMode() : lightMode(),
+      theme:/**  isDarkMode ? darkMode() :*/ lightMode(),
       home:   MainScreen(),
     );
   }

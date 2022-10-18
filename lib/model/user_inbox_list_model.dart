@@ -17,4 +17,5 @@ class UserInboxListModel extends HiveObject {
     required this.phone,
     required this.userProfile,
   });
+  
 }

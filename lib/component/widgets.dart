@@ -46,11 +46,11 @@ static Widget userItem({
               children: [
                 Text(
                   name,
-                  style: usernameTextStyle,
+                  style:SnTextStyles.usernameTextStyle,
                 ),
                 Text(
                   lastMaeeage,
-                  style: messageTextStyle,
+                  style: SnTextStyles.messageTextStyle,
                 ),
               ],
             ),
@@ -60,12 +60,12 @@ static Widget userItem({
           children: [
             Text(
               time,
-              style: timeTextStyle,
+              style: SnTextStyles.timeTextStyle,
             ),
             Container(
               height: 18,
               width: 18,
-              decoration: BoxDecoration(shape: BoxShape.circle, color: badg),
+              decoration: BoxDecoration(shape: BoxShape.circle, color: SnColors.badg),
               child: const Center(child: Text("1")),
             ),
           ],
@@ -100,7 +100,7 @@ static Widget callsItem({
               children: [
                 Text(
                   name,
-                  style: usernameTextStyle,
+                  style: SnTextStyles.usernameTextStyle,
                 ),
                 Row(
                   children: [
@@ -108,7 +108,7 @@ static Widget callsItem({
                     SizedBox(width: Dimens.small,),
                     Text(
                       lastMaeeage,
-                      style: messageTextStyle,
+                      style: SnTextStyles.messageTextStyle,
                     ),
                   ],
                 ),
