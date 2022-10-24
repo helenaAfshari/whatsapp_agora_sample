@@ -15,6 +15,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/add_status.svg
   String get addStatus => 'assets/icons/add_status.svg';
 
+  /// File path: assets/icons/dot_menu.svg
+  String get dotMenu => 'assets/icons/dot_menu.svg';
+
   /// File path: assets/icons/incall.svg
   String get incall => 'assets/icons/incall.svg';
 

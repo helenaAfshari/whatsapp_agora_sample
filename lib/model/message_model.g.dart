@@ -1,41 +1,50 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_inbox_list_model.dart';
+part of 'message_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class UserInboxListModelAdapter extends TypeAdapter<UserInboxListModel> {
+class MessageModelAdapter extends TypeAdapter<MessageModel> {
   @override
-  final int typeId = 1;
+  final int typeId = 2;
 
   @override
-  UserInboxListModel read(BinaryReader reader) {
+  MessageModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return UserInboxListModel(
-      name: fields[0] as String,
-      phone: fields[1] as String,
-      userProfile: fields[2] as String,
-      messageList: (fields[4] as List).cast<MessageModel>(),
+    return MessageModel(
+      name: fields[0] as String?,
+      phone: fields[1] as String?,
+      userProfile: fields[2] as String?,
+      peerId: fields[3] as String?,
+      time: fields[4] as String?,
+      content: fields[5] as String?,
+      type: fields[6] as String?,
     );
   }
 
   @override
-  void write(BinaryWriter writer, UserInboxListModel obj) {
+  void write(BinaryWriter writer, MessageModel obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
       ..write(obj.phone)
       ..writeByte(2)
       ..write(obj.userProfile)
+      ..writeByte(3)
+      ..write(obj.peerId)
       ..writeByte(4)
-      ..write(obj.messageList);
+      ..write(obj.time)
+      ..writeByte(5)
+      ..write(obj.content)
+      ..writeByte(6)
+      ..write(obj.type);
   }
 
   @override
@@ -44,7 +53,7 @@ class UserInboxListModelAdapter extends TypeAdapter<UserInboxListModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is UserInboxListModelAdapter &&
+      other is MessageModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

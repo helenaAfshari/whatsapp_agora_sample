@@ -17,7 +17,7 @@ class UserInboxListController extends GetxController {
     log("addToInbox");
     var box = await Hive.openBox(HiveFieldConstant.userInboxListBox);
     var user = UserInboxListModel(
-        name: name, phone: phone, userProfile: "userProfile");
+        name: name, phone: phone, userProfile: "userProfile",messageList: []);
 
 
     bool exists = false;
