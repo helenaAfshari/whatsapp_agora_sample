@@ -33,7 +33,7 @@ class MainScreen extends StatelessWidget {
                   return <Widget>[
                     SliverAppBar(
                       title: Text("WhatsApp"),
-                      backgroundColor: whatsappColor,
+                      backgroundColor: SnColors.whatsappColor,
                       expandedHeight: 100,    
                       pinned: true,
                       floating: true,
@@ -41,7 +41,7 @@ class MainScreen extends StatelessWidget {
                         tabs: [
                           Container(
                             height: 35,
-                            color: whatsappColor,
+                            color:  SnColors.whatsappColor,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -84,8 +84,8 @@ class MainScreen extends StatelessWidget {
                                                                   style: index ==
                                                                           selectedTabIndex
                                                                               .value
-                                                                      ? selectedTabBarTextStyle
-                                                                      : unselectedTabBarTextStyle,
+                                                                      ? SnTextStyles.selectedTabBarTextStyle
+                                                                      : SnTextStyles.unselectedTabBarTextStyle,
                                                                 ),
                                                                 Padding(
                                                                   padding: const EdgeInsets
