@@ -134,10 +134,20 @@ class ChatScreen extends StatelessWidget {
               ),
                ),
             
-              Image(
-                image:
+              Container(
+              height: 46,
+              width: 46,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: SnColors.badg,
+              ),  
+              child: 
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Image(image: Image.asset(Assets.icons.microphone.path).image),
+                ),
               
-                 Image.asset(Assets.icons.microphone.path,).image),
+              ),
            
             ]
             
